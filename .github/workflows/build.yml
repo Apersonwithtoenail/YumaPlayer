@@ -1,4 +1,4 @@
-name: Build Yuma APK
+name: Build Yuma Release
 on:
   push:
     branches: [ "main" ]
@@ -13,12 +13,18 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: Decode Keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/my-release-key.jks
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
-      - name: Build APK
-        run: ./gradlew assembleFossMobileArm64Debug
+      - name: Build Release
+        run: ./gradlew assembleFossMobileArm64Release
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: YumaPlayer-APK
-          path: app/build/outputs/apk/fossMobileArm64/debug/*.apk
+          name: YumaPlayer-Release-APK
+          path: app/build/outputs/apk/fossMobileArm64/release/*.apk

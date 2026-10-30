@@ -286,6 +286,7 @@ ksp {
 }
 
 dependencies {
+    implementation("io.github.itshedimisawi:vitro:0.1.0")
 implementation(libs.androidx.foundation.layout)
     implementation(libs.animation.core)
     implementation(libs.foundation.layout)

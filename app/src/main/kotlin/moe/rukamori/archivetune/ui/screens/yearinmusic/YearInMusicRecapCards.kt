@@ -298,7 +298,7 @@ internal fun TopSongRecapCard(
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .blur(18.dp),
+                    .blur(40.dp),
         )
         Box(
             modifier =

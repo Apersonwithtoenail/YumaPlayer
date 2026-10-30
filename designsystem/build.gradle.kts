@@ -30,6 +30,7 @@ kotlin {
 }
 
 dependencies {
+    implementation("io.github.itshedimisawi:vitro:0.1.0")
     implementation(libs.compose.runtime)
     implementation(libs.compose.foundation)
     implementation(libs.compose.ui)
