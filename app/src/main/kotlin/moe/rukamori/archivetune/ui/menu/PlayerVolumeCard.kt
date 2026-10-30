@@ -151,7 +151,7 @@ private fun VolumeSliderL(
         colors =
             SliderDefaults.colors(
                 thumbColor = MaterialTheme.colorScheme.primary,
-                activeTrackColor = MaterialTheme.colorScheme.primary,
+                activeTrackColor = Color.White,
                 inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
                 activeTickColor = Color.Transparent,
                 inactiveTickColor = Color.Transparent,

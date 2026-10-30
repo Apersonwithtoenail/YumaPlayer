@@ -207,7 +207,7 @@ internal fun EqToggleSliderRow(
                 enabled = enabled,
                 colors =
                     SliderDefaults.colors(
-                        activeTrackColor = MaterialTheme.colorScheme.primary,
+                        activeTrackColor = Color.White,
                         inactiveTrackColor = MaterialTheme.colorScheme.surface,
                     ),
                 modifier = Modifier.weight(1f),
