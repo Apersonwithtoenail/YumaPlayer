@@ -139,10 +139,18 @@ fun FloatingNavigationToolbar(
             .clip(capsuleShape)
             .then(
                 if (hazeState != null) {
-                    Modifier.hazeEffect(
-                        state = hazeState,
-                        style = hazeStyle,
-                    ) {
+                    Modifier
+    .hazeEffect(
+        state = hazeState,
+        style = HazeStyle(
+            backgroundColor = MaterialTheme.colorScheme.surface,
+            tint = HazeTint(Color.White.copy(alpha = 0.15f)),
+            blurRadius = 40.dp,
+            noiseFactor = 0.1f
+        )
+    )
+    .border(1.dp, Color.White.copy(alpha = 0.2f), shape)
+ {
                         inputScale = HazeInputScale.Fixed(SettingsDimensions.HazeInputScaleValue)
                         this.blurEnabled = blurEnabled
                     }
