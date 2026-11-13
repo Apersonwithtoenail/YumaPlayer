@@ -93,22 +93,18 @@ class FlacDownloadWorker(
             outputStream = context.contentResolver.openOutputStream(file.uri)
             savedPath = file.uri.path ?: fileName
         } else {
-            val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
-            val yumaDir = File(musicDir, "YumaPlayer")
-            val artistDir = File(yumaDir, sanitizeFileName(artist))
-            val albumDir = File(artistDir, sanitizeFileName(album))
-            if (!albumDir.exists()) {
-                albumDir.mkdirs()
+            val resolver = context.contentResolver
+            val values = android.content.ContentValues().apply {
+                put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                put(android.provider.MediaStore.MediaColumns.MIME_TYPE, if (fileName.endsWith(".flac")) "audio/flac" else "audio/mp4")
+                put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "${Environment.DIRECTORY_MUSIC}/YumaPlayer/${sanitizeFileName(artist)}/${sanitizeFileName(album)}")
             }
-            val file = File(albumDir, fileName)
-            if (file.exists()) {
-                entryPoint.database().update(song.song.copy(dateDownload = LocalDateTime.now()))
-                return@withContext Result.success()
-            }
-            file.createNewFile()
-            deleteFile = { file.delete() }
-            outputStream = FileOutputStream(file)
-            savedPath = file.absolutePath
+            val uri = resolver.insert(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values)
+            if (uri == null) return@withContext Result.failure()
+            val file = File(uri.path ?: fileName)
+            deleteFile = { resolver.delete(uri, null, null) }
+            outputStream = resolver.openOutputStream(uri)
+            savedPath = uri.path ?: fileName
         }
 
         if (outputStream == null) {

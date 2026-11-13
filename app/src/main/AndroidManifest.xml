@@ -47,11 +47,11 @@
         android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="${appName}"
+        android:label="Sudoic"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:usesCleartextTraffic="true"
         android:supportsRtl="false"
-        android:theme="@style/Theme.ArchiveTune"
+        android:theme="@style/Theme.Sudoic"
         tools:targetApi="tiramisu">
         <uses-library
             android:name="org.apache.http.legacy"
@@ -61,7 +61,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.ArchiveTune"
+            android:theme="@style/Theme.Sudoic"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -182,7 +182,7 @@
         <activity
             android:name=".RestoreBackupFileActivity"
             android:exported="true"
-            android:theme="@style/Theme.ArchiveTune"
+            android:theme="@style/Theme.Sudoic"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -245,7 +245,7 @@
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             android:exported="true"
             android:icon="@drawable/mic"
-            android:label="@string/music_recognition">
+            android:label="Sudoic">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
@@ -256,7 +256,7 @@
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             android:exported="true"
             android:icon="@drawable/ic_sleep_timer"
-            android:label="@string/aod_mode">
+            android:label="Sudoic">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
@@ -366,19 +366,19 @@
             android:name=".DebugActivity"
             android:exported="true"
             android:process=":crash"
-            android:theme="@style/Theme.ArchiveTune">
+            android:theme="@style/Theme.Sudoic">
         </activity>
 
         <activity
             android:name=".ui.screens.settings.PoTokenExtractionActivity"
             android:exported="false"
-            android:theme="@style/Theme.ArchiveTune" />
+            android:theme="@style/Theme.Sudoic" />
 
         <activity
             android:name=".discord.DiscordOAuthCallbackActivity"
             android:exported="true"
             android:noHistory="true"
-            android:theme="@style/Theme.ArchiveTune">
+            android:theme="@style/Theme.Sudoic">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
