@@ -78,14 +78,18 @@ object FlacDownloader {
                 }
                 safDirectoryManager.clearCache()
             } else {
-                val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
-                val yumaDir = File(musicDir, "YumaPlayer")
-                val artistDir = File(yumaDir, sanitizeFileName(artist))
-                val albumDir = File(artistDir, sanitizeFileName(album))
-                val file = File(albumDir, "${sanitizeFileName(title)}.flac")
-                if (file.exists()) {
-                    targetPath = file.absolutePath
-                    deleted = file.delete()
+                val resolver = context.contentResolver
+                val uri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                val selection = "${android.provider.MediaStore.MediaColumns.DISPLAY_NAME} = ?"
+                val selectionArgs = arrayOf("${sanitizeFileName(title)}.flac")
+                val cursor = resolver.query(uri, null, selection, selectionArgs, null)
+                if (cursor != null && cursor.moveToFirst()) {
+                    val id = cursor.getLong(cursor.getColumnIndexOrThrow(android.provider.MediaStore.MediaColumns._ID))
+                    val fileUri = android.content.ContentUris.withAppendedId(uri, id)
+                    targetPath = fileUri.path ?: ""
+                    deleted = resolver.delete(fileUri, null, null) > 0
+                    cursor.close()
+                }
                 }
             }
             if (deleted) {
